@@ -46,3 +46,12 @@ The small gap is because TF-IDF down-weights common words automatically, while o
 ### - What surprised you about Arabic Twitter text?
 The extra use of character elongation " Tatweel" like -> جميييييل , also the emojis. All this show for us how important preprocessing steps are for informal
 Arabic text before building any model.
+
+### - What does TF-IDF capture that BoW does not?
+Bag-of-words counts every word equally. TF-IDF fixes this by giving each word two scores :
+
+*  TF (how often the word appears in this tweet)
+*  IDF (how rare the word is across all tweets).
+  
+Common words like "في" and "على" get a very low weight, while meaningful words like "رائع" get a higher weight
+
