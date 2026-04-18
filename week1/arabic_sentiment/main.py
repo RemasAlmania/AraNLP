@@ -13,7 +13,7 @@ def load_data():
 def run_preprocessing_demo(preprocessor: ArabicPreprocessor, raw_tweets: list) -> None:
     """Print a before/after table for 5 sample tweets."""
     print("\n" + "=" * 60)
-    print("PART 1 — Preprocessing Demo")
+    print("PART 1 — Preprocessing ")
     print("=" * 60)
     print(f"{'Before':<45} {'After'}")
     print("-" * 80)
@@ -22,24 +22,34 @@ def run_preprocessing_demo(preprocessor: ArabicPreprocessor, raw_tweets: list) -
         print(f"{tweet[:45]:<45} {cleaned}")
 
 
-def run_language_model(train_tokens: list, test_tokens: list) -> None:
-    """Train bigram and trigram LMs and print perplexity comparison."""
+def run_language_model(train_tokens_raw: list, train_tokens_clean: list, test_tokens_raw: list, test_tokens_clean: list) -> None:
     print("\n" + "=" * 60)
     print("PART 2 — Language Model Perplexity")
     print("=" * 60)
 
-    results = {}
-    for n, name in [(2, "Bigram"), (3, "Trigram")]:
-        model = NgramLanguageModel(n=n)
-        model.train(train_tokens)
-        ppl = model.perplexity(test_tokens)
-        results[name] = ppl
-        print(f"{name} perplexity: {ppl:.2f}")
+    models = {}
+    print(f"\n{'Model':<10} | {'Raw PPL':>10} | {'Preprocessed':>16}")
+    print("-" * 44)
 
-        print(f"\n{name} generated samples:")
+    for n, name in [(2, "Bigram"), (3, "Trigram")]:
+        raw_model = NgramLanguageModel(n=n)
+        raw_model.train(train_tokens_raw)
+        raw_ppl = raw_model.perplexity(test_tokens_raw)
+
+        clean_model = NgramLanguageModel(n=n)
+        clean_model.train(train_tokens_clean)
+        clean_ppl = clean_model.perplexity(test_tokens_clean)
+
+        print(f"{name:<10} | {raw_ppl:>10.2f} | {clean_ppl:>16.2f}")
+        models[name] = clean_model
+
+    print("\n" + "-" * 44)
+    print("Generated Samples (preprocessed models):")
+    print("-" * 44)
+    for name, model in models.items():
+        print(f"\n{name}:")
         for _ in range(3):
             print(" -", model.generate())
-
 
 def run_naive_bayes(
     train_docs: list,
@@ -145,7 +155,9 @@ def main() -> None:
     test_docs  = [preprocessor.preprocess(t) for t in raw_test_tweets]
 
     # Step 4: Language model
-    run_language_model(train_docs, test_docs[:500])
+    train_docs_raw = [doc.split() for doc in raw_train_tweets]
+    test_docs_raw  = [doc.split() for doc in raw_test_tweets]
+    run_language_model(train_docs_raw, train_docs, test_docs_raw[:500], test_docs[:500])
 
     # Step 5: Sample 100 for evaluation
     indices = random.sample(range(len(test_docs)), 100)
