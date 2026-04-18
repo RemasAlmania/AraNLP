@@ -21,9 +21,9 @@ def precision_recall_f1(
     Returns:
         (precision, recall, f1) as a tuple of floats.
     """
-    tp = 0  # predicted positive, actually positive
-    fp = 0  # predicted positive, actually negative
-    fn = 0  # predicted negative, actually positive
+    tp = 0  # predicted positive actually positive
+    fp = 0  # predicted positive actually negative
+    fn = 0  # predicted negative actually positive
 
     for pred, true in zip(predictions, gold):
         if pred == positive_label and true == positive_label:
@@ -54,7 +54,7 @@ def confusion_matrix_str(
     True Pos     42        8
     True Neg      5       45
     """
-    # build matrix
+ 
     matrix = {}
     for true in labels:
         matrix[true] = {}
@@ -64,7 +64,7 @@ def confusion_matrix_str(
     for pred, true in zip(predictions, gold):
         matrix[true][pred] += 1
 
-    # format as string
+
     header = f"{'':12}" + "".join(f"Pred {l:8}" for l in labels)
     rows = ""
     for true in labels:

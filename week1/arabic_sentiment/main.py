@@ -147,30 +147,30 @@ def main() -> None:
     train_labels     = ["positive" if item["label"] == 1 else "negative" for item in train_data]
     test_labels      = ["positive" if item["label"] == 1 else "negative" for item in test_data]
 
-    # Step 2: Preprocessing demo
+    #  2: Preprocessing 
     run_preprocessing_demo(preprocessor, raw_train_tweets)
 
-    # Step 3: Preprocess all data
+    #  3: Preprocess all data
     train_docs = [preprocessor.preprocess(t) for t in raw_train_tweets]
     test_docs  = [preprocessor.preprocess(t) for t in raw_test_tweets]
 
-    # Step 4: Language model
+    #  4: Language model
     train_docs_raw = [doc.split() for doc in raw_train_tweets]
     test_docs_raw  = [doc.split() for doc in raw_test_tweets]
     run_language_model(train_docs_raw, train_docs, test_docs_raw[:500], test_docs[:500])
 
-    # Step 5: Sample 100 for evaluation
+    #  5: Sample 100 for evaluation
     indices = random.sample(range(len(test_docs)), 100)
     test_sample_docs   = [test_docs[i]        for i in indices]
     test_sample_labels = [test_labels[i]      for i in indices]
     test_sample_tweets = [raw_test_tweets[i]  for i in indices]
 
-    # Step 6: Naive Bayes
+    #  6: Naive Bayes
     run_naive_bayes(train_docs, train_labels,
                     test_sample_docs, test_sample_labels,
                     test_sample_tweets)
 
-    # Step 7: Library baseline
+    #  7: Library baseline
     run_library_baseline(train_docs, train_labels,
                          test_sample_docs, test_sample_labels)
 

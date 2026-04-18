@@ -4,7 +4,7 @@ from typing import List
 class ArabicPreprocessor:
 
     def remove_diacritics(self, text: str) -> str:
-        """Remove Arabic diacritics (tashkeel) """
+        """Remove Arabic diacritics (tashkeel / harakat). """
         return re.sub(r'[\u064B-\u065F]', '', text)
 
     def normalize_alef(self, text: str) -> str:
@@ -36,16 +36,29 @@ class ArabicPreprocessor:
         return re.sub(r'(.)\1{2,}', r'\1', text)
 
     def tokenize(self, text: str) -> List[str]:
-        """Split on whitespace and filter empty strings."""
+        """        
+        Tokenize text by splitting on whitespace.
+        
+        After cleaning, a simple whitespace split is sufficient.
+        Filter out any empty strings.
+        
+        Returns:
+            A list of word tokens.
+            """
         return [word for word in text.split() if word]
 
     def preprocess(self, text: str, tokenize: bool = True):
         """
-        Run the full pipeline in order.
-
+        Run the full preprocessing pipeline.
+        
+        Apply all steps in a sensible order, then optionally tokenize.
+        
         Args:
-            text: raw input string.
-            tokenize: if True return List[str], else return cleaned str.
+            text:      Raw input string.
+            tokenize:  If True, return List[str]; otherwise return cleaned str.
+        
+        Returns:
+            List of tokens or a cleaned string.
         """
         text = self.remove_urls(text)
         text = self.remove_mentions(text)

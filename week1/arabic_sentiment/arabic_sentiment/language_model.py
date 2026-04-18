@@ -39,7 +39,9 @@ class NgramLanguageModel:
     def train(self, corpus: List[List[str]]) -> None:
         """
         Train on a list of tokenized sentences.
-        Counts n-grams and their contexts, builds vocab.
+        
+        Args:
+            corpus: A list of token lists (one per tweet/sentence).
         """
         for tokens in corpus:
             for token in tokens:
@@ -52,6 +54,7 @@ class NgramLanguageModel:
         """
         Log probability of an n-gram using Laplace smoothing.
         P(w | context) = (count(context, w) + 1) / (count(context) + |V|)
+        Returns log base 2 of the probability.
         """
         context = ngram[:-1]
         numerator = self.counts[ngram] + 1
@@ -59,7 +62,11 @@ class NgramLanguageModel:
         return math.log2(numerator / denominator)
 
     def sentence_log_probability(self, tokens: List[str]) -> float:
-        """Sum of log probabilities of all n-grams in the sentence."""
+        """       
+        Return the total log probability of a tokenized sentence.
+        
+        This is the sum of log probabilities of each n-gram in the sentence.
+        """
         total = 0
         for ngram in self._extract_ngrams(tokens):
             total += self.log_probability(ngram)
@@ -68,7 +75,7 @@ class NgramLanguageModel:
     def perplexity(self, corpus: List[List[str]]) -> float:
         """
         Perplexity = 2^(-average log probability per token)
-        Lower = better model.
+        Lower perplexity = better model.
         """
         total_log_prob = 0
         total_tokens = 0

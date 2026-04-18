@@ -2,8 +2,7 @@ from collections import Counter, defaultdict
 from typing import List, Dict, Tuple
 import math
 
-Label = str  # "positive" or "negative"
-
+Label = str  # positive or negative
 class NaiveBayesClassifier:
     """
     Multinomial Naïve Bayes classifier for text.
@@ -35,7 +34,7 @@ class NaiveBayesClassifier:
             2. Concatenate all tokens per class -> build per-class word counts.
             3. Apply Laplace smoothing -> compute log likelihoods.
         """
-        # Step 1: count docs per class
+        # 1: count docs per class
         total_docs = len(documents)
         class_doc_counts = Counter(labels)
 
@@ -43,14 +42,14 @@ class NaiveBayesClassifier:
         for label, count in class_doc_counts.items():
             self.class_log_priors[label] = math.log(count / total_docs)
 
-        # Step 2: collect all words per class
+        # 2: collect all words per class
         class_word_counts = defaultdict(Counter)
         for doc, label in zip(documents, labels):
             for word in doc:
                 self.vocab.add(word)
                 class_word_counts[label][word] += 1
 
-        # Step 3: Laplace smoothing -> log likelihoods
+        # 3: Laplace smoothing -> log likelihoods
         vocab_size = len(self.vocab)
         for label in class_doc_counts:
             total_words = sum(class_word_counts[label].values())
