@@ -88,6 +88,7 @@ class NgramLanguageModel:
         """
         Generate tokens using the model until </s> or max_tokens.
         Uses random.choices weighted by probability.
+        
         """
         context = ['<s>'] * (self.n - 1)
         if seed:

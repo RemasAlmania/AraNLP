@@ -82,6 +82,7 @@ class NaiveBayesClassifier:
         Top-n most discriminative words per class.
         Score = log P(w | class) - log P(w | other class)
         """
+        
         labels = list(self.class_log_priors.keys())
         result = {}
         for label in labels:

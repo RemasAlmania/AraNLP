@@ -21,6 +21,7 @@ def precision_recall_f1(
     Returns:
         (precision, recall, f1) as a tuple of floats.
     """
+    
     tp = 0  # predicted positive actually positive
     fp = 0  # predicted positive actually negative
     fn = 0  # predicted negative actually positive
