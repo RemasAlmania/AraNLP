@@ -22,51 +22,7 @@ AraNLP/
     └── Arabic-RAG-Chatbot/
         └── Arabic_RAG_Chatbot.ipynb
 ```
-
 ---
-
-##  Weekly Breakdown
-
-###  Week 1 — Arabic NLP Fundamentals
-**Topics:** Text preprocessing, Arabic sentiment analysis
-
-| Folder | Description |
-|--------|-------------|
-| `Exercises/` | Hands-on exercises for core NLP concepts |
-| `HomeWork/` | Weekly homework assignments |
-| `arabic_sentiment/` | Arabic sentiment analysis project |
-
----
-
-###  Week 2 — Arabic Word Embeddings
-**Topics:** Word2Vec, text classification using embeddings
-
-| Folder | Description |
-|--------|-------------|
-| `HomeWork/` | Weekly homework assignments |
-| `Project/Arabic-Word-Embedding/` | Arabic Word2Vec classification project |
-
----
-
-###  Week 3 — NanoGPT for Arabic
-**Topics:** Transformer-based language modeling, GPT architecture
-
-| File | Description |
-|------|-------------|
-| `nanoGPT_Arabic.ipynb` | Training a small GPT model on Arabic text |
-
----
-
-###  Week 4 — Fine-tuning & RAG
-**Topics:** Prefix Tuning, PEFT, Retrieval-Augmented Generation
-
-| Folder / File | Description |
-|---------------|-------------|
-| `Prefix-Tuning-PEFT/prefix_tuning.ipynb` | Efficient fine-tuning using Prefix Tuning & PEFT |
-| `Arabic-RAG-Chatbot/Arabic_RAG_Chatbot.ipynb` | Arabic chatbot powered by RAG |
-
----
-
 ##  Technologies Used
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
